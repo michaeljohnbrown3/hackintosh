@@ -15,3 +15,12 @@ Setting up your Hackintosh
 Go through the MacOS Ventura setup process however you see fit.
 
 Downloads
+
+OC Auxiliary Tools
+https://github.com/ic005k/OCAuxiliaryTools/releases/download/20230019/OCAT_Mac.dmg
+
+OC Auxiliary Tools is used to make changes to your EFI file.
+
+Benchmarking
+Cinebench23
+Unigine Heaven
