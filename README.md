@@ -24,3 +24,20 @@ OC Auxiliary Tools is used to make changes to your EFI file.
 Benchmarking
 Cinebench23
 Unigine Heaven
+
+Issues while configuring and their resolutions with sources
+
+The vast majority of this project was completed using Dortania's OpenCore Install Guide https://dortania.github.io/OpenCore-Install-Guide/
+Help and Tools were usually found in Technolli's website and YouTube channel. https://www.technolli.com/downloads https://www.youtube.com/@TechNolli
+
+Device can only be woken from sleep using the power button (Wake by keyboard does not typically work on Hackintosh) Source: https://www.tonymacx86.com/threads/wake-by-keyboard.311841/
+
+DRM is not supported for Netflix and Amazon on Safari, however it has been tested and is supported through Chrome and likely works in other browsers as well. I found part of the issue was an incorrect PCIList name. Source:
+
+After hours spent trying to figure out Ethernet connectivity, ensure that LAN Controller is ENABLED in your BIOS.
+
+There is no "Wake from Lan" on this motherboard's BIOS, you must use the GPRW to XPRW patch found on Dortania's guide. I had trouble configuring the patch through OCAuxiliaryTool due to the hexidecimal input requirement. This process was made easy by opening the config.plist in VS Code and copying and pasting the patch directly into the file. https://dortania.github.io/OpenCore-Post-Install/usb/misc/instant-wake.html
+
+For the Wi-Fi and Bluetooth card to work, the order of the kexts matters. Once placed in the correct order, both functioned perfectly, although there appears to be a slight delay in Wi-Fi connecting on boot. This is consistent and once connected there are no issues. https://www.youtube.com/watch?v=8ztViUoN8h8
+
+USB Mapping was difficult as I only had a USB 2.0 keyboard and mouse.
