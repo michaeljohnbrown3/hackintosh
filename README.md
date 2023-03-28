@@ -8,7 +8,7 @@ EFI and README for first Hackintosh build.
 
 Intel Core i3-9100F Desktop Processor 4 Core Up to 4.2 GHz without Processor Graphics LGA1151 300 Series 65W
 
-[Specifications](https://www.intel.com/content/www/us/en/products/sku/190886/intel-core-i39100f-processor-6m-cache-up-to-4-20-ghz/specifications.html)<a href="https://www.intel.com/content/www/us/en/products/sku/190886/intel-core-i39100f-processor-6m-cache-up-to-4-20-ghz/specifications.html" target="_blank">Specifications</a>
+<a href="https://www.intel.com/content/www/us/en/products/sku/190886/intel-core-i39100f-processor-6m-cache-up-to-4-20-ghz/specifications.html" target="_blank">Specifications</a>
 
 ### GPU
 
@@ -68,17 +68,18 @@ OC Auxiliary Tools is used to make changes to your EFI file.
 
 ## Issues while configuring and their resolutions with sources
 
-The vast majority of this project was completed using Dortania's OpenCore Install Guide https://dortania.github.io/OpenCore-Install-Guide/
-Help and Tools were usually found in Technolli's website and YouTube channel. https://www.technolli.com/downloads https://www.youtube.com/@TechNolli
+The vast majority of this project was completed using <a href="https://dortania.github.io/OpenCore-Install-Guide/" target="_blank">Dortania's OpenCore Install Guide</a>
 
-Device can only be woken from sleep using the power button (Wake by keyboard does not typically work on Hackintosh) Source: https://www.tonymacx86.com/threads/wake-by-keyboard.311841/
+Help and Tools were usually found in Technolli's <a href="https://www.technolli.com/downloads" target="_blank">website</a> and <a href="https://www.youtube.com/@TechNolli" target="_blank">YouTube channel</a>.
+
+Device can only be woken from sleep using the power button. Currently support for USB wake hasn't been figured out yet.
 
 DRM is not supported for Netflix and Amazon on Safari, however it has been tested and is supported through Chrome and likely works in other browsers as well. I found part of the issue was an incorrect PCIList name. Source:
 
 After hours spent trying to figure out Ethernet connectivity, ensure that LAN Controller is ENABLED in your BIOS.
 
-There is no "Wake from Lan" on this motherboard's BIOS, you must use the GPRW to XPRW patch found on Dortania's guide. I had trouble configuring the patch through OCAuxiliaryTool due to the hexidecimal input requirement. This process was made easy by opening the config.plist in VS Code and copying and pasting the patch directly into the file. https://dortania.github.io/OpenCore-Post-Install/usb/misc/instant-wake.html
+There is no "Wake from Lan" on this motherboard's BIOS, you must use the GPRW to XPRW patch <a href="https://dortania.github.io/OpenCore-Post-Install/usb/misc/instant-wake.html" target="_blank">found on Dortania's guide</a>. I had trouble configuring the patch through OCAuxiliaryTool due to the hexidecimal input requirement. This process was made easy by opening the config.plist in VS Code and copying and pasting the patch directly into the file.
 
-For the Wi-Fi and Bluetooth card to work, the order of the kexts matters. Once placed in the correct order, both functioned perfectly, although there appears to be a slight delay in Wi-Fi connecting on boot. This is consistent and once connected there are no issues. https://www.youtube.com/watch?v=8ztViUoN8h8
+For the Wi-Fi and Bluetooth card to work, <a href="https://www.youtube.com/watch?v=8ztViUoN8h8" target="_blank">**the order of the kexts matters**</a>. Once placed in the correct order, both functioned perfectly, although there appears to be a slight delay in Wi-Fi connecting on boot. This is consistent and once connected there are no issues.
 
 USB Mapping was difficult as I only had a USB 2.0 keyboard and mouse.
