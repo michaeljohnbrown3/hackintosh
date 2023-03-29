@@ -32,11 +32,9 @@ The purpose of this file is to provide guidance for the user of this build to se
 
 ---
 
-# Setting up your Hackintosh
+# Out of the Box: Setting up MacOS Ventura
 
 Follow the MacOS Ventura setup process.
-
-<!-- ## Creating a Bootable USB Recovery Drive -->
 
 ## Time Machine
 
@@ -53,6 +51,10 @@ Time Machine is STRONGLY RECOMMENDED. While Time Machine can use up resources, u
 To turn off in background - System Settings -> General -> Login Items -> Set "Allow in background" to False.
 
 <a href="https://assets.unigine.com/d/Unigine_Heaven-4.0.dmg">Unigine Heaven:</a> - Used to stress the GPU and measure performance
+
+## Creating a Bootable USB Recovery Drive
+
+It is strongly recommended that you create a recovery drive. This process is described <a href="#EFI##Creating-a-Bootable-USB-with-MacOS-Ventura">later in this document</a> because it takes a basic understanding of how the EFI Partition works. The step-by-step is comprehensive and I aimed to give enough detail that you could navigate it without really understanding what is happening, but it is easier to follow if you read this whole document and follow the links. I also encourage you to follow Dortania's Guide.
 
 ## FileVault - VERY IMPORTANT
 
@@ -117,24 +119,62 @@ To access an EFI partition, open OCAuxiliaryTools. On the top of the window, you
 
 This will inject your Config.plist file into the OCAuxiliaryTools application. Now you have the ability to change any settings in your Config.plist file. Use the Finder application to add/remove files, kexts, and drivers into the booter. Anything added or removed from the file director of the EFI MUST be updated in the Config.plist file or the system will run into boot issues.
 
-<!-- ## Creating a Bootable USB with MacOS Ventura -->
+## Creating a Bootable USB with MacOS Ventura
+
+Dortania has a <a href="https://dortania.github.io/OpenCore-Install-Guide/installer-guide/mac-install.html#downloading-macos-modern-os" target="_blank">very indepth</a> guide on this process. The challenge for me was completing the process on MacOS El Capitan created some continuity issues with the guide. The complications are actually the reason why I used OpenCore's Legacy Installer on my 2009 MacBook Pro, which is now running Ventura with only very minor graphical bugs. Having this newer OS made creating the USB a breeze.
+
+1. Plug in a blank 16GB USB Drive and open Disk Utility
+2. Select the highest level of your USB flash drive (picture shown in Dortania if you need further clarification), erase and name the Drive: MyVolume. Note: we name this "MyVolume" so that when we copy and paste the command in step 4, we won't have to change anything. You could really make the name whatever you would like, as long as you change "MyVolume" in the command to the new name.
+3. Download a copy of MacOS Ventura - this can be tricky because the App Store doesn't always want to give you a download. If you can do this, great, if not try downloading the latest installer from <a href="https://osxdaily.com/download-macos-ventura-13-full-installer/" target="_blank">OSX Daily</a>. The download you received needs to be launched to install the installer (I know how this sounds, but trust me, I wasted time not understanding why my .pkg wouldn't install to the USB), and make sure the installer ends up in your Applications Folder.
+4. Use <a href="https://support.apple.com/en-us/HT201372" target="_blank">Apple's directions</a> for creating a Bootable USB with MacOS Ventura on it. When I did this, I ran into some issues with the Terminal that would say "sudo: command not found". The reason for this is your user might not have root permissions. The work around for this was to run the command "sudo su", which then prompts you for your password. Once entered, copy and paste the rest of the command and run it. This process will take some time.
+5. Download the EFI Folder to your Desktop from this repository. This version has boot picker, verbose mode, and debugging all enabled so that you are able to select how you wish to proceed at boot. I recommend you update the EFI on this drive with the last known working EFI from your device. That said, if it's a recovery disk you are making, you should enable boot picker, verbose mode, and debugging. More on this in the next section.
+6. Use OCAuxiliaryTools to Mount the EFI of the USB Flash Drive (Navigate to it in Finder and it should be empty)
+7. Drag and drop the EFI Folder from your Desktop to the EFI Partition and voila! You should now have a Bootable USB Recovery Flash Drive.
+
+## Boot Picker, Verbose mode, and Debugging
+
+If you're creating a bootable recovery usb using your own EFI, or you used the recovery USB, ensured your device is stable and are ready to remove these arguments, you'll need to know where to access them, and how to enable or disable them.
+
+To access verbose mode and debugging, mount your EFI as we've done before. Click on NVRAM then 7C436110-AB2A-4BBB-A880-FE41995C9F82. You should see a property called "boot-args". This is where arguments are specified at boot and are enabled for the duration of the system's session.
+
+To enable verbose mode and debugging, double click on value cell, move your cursor to the front of the line of text and add in "-v debug=0x100 ". Ensure there is a space between the two as well as before any other boot arguments.
+
+To access boot picker, mount your EFI if you haven't done so already. Click on Misc -> Boot (if not selected automatically) -> you should see a checkbox next to "Show Picker". If selected, you will see a drive picker at boot. If empty you will not.
 
 ---
 
-## Issues while configuring and their resolutions with sources
+# Building this Hackintosh
+
+If you've gotten this Hackintosh set up and functioning, enjoy it! You're done reading! However, if you're someone going through a build right now and looking for any resource you can find to help get you unstuck, I hope you can find the rest of this document useful.
+
+I ran into many issues and spent hours upon hours on my first build. I learned so much and only made progress because people would share what they did in forums or in their own Github repos. I hope this helps someone in need.
 
 The vast majority of this project was completed using <a href="https://dortania.github.io/OpenCore-Install-Guide/" target="_blank">Dortania's OpenCore Install Guide</a>
 
 Help and Tools were usually found in Technolli's <a href="https://www.technolli.com/downloads" target="_blank">website</a> and <a href="https://www.youtube.com/@TechNolli" target="_blank">YouTube channel</a>.
 
+## OpenCore Resolution at Boot - Not resolved
+
+## Wake from sleep using USB Keyboard/Mouse - Not resolved.
+
 Device can only be woken from sleep using the power button. Currently support for USB wake hasn't been figured out yet.
+
+## DRM support (or lackthereof) - SORT OF RESOLVED
 
 DRM is not supported for Netflix and Amazon on Safari, however it has been tested and is supported through Chrome and likely works in other browsers as well. I found part of the issue was an incorrect PCIList name. Source:
 
+## Ethernet - EMBARRASSINGLY RESOLVED
+
 After hours spent trying to figure out Ethernet connectivity, ensure that LAN Controller is ENABLED in your BIOS.
+
+## Sleep issue - RESOLVED
 
 There is no "Wake from Lan" on this motherboard's BIOS, you must use the GPRW to XPRW patch <a href="https://dortania.github.io/OpenCore-Post-Install/usb/misc/instant-wake.html" target="_blank">found on Dortania's guide</a>. I had trouble configuring the patch through OCAuxiliaryTool due to the hexidecimal input requirement. This process was made easy by opening the config.plist in VS Code and copying and pasting the patch directly into the file.
 
+## Wi-FI/Bluetooth Card - RESOLVED
+
 For the Wi-Fi and Bluetooth card to work, <a href="https://www.youtube.com/watch?v=8ztViUoN8h8" target="_blank">**the order of the kexts matters**</a>. Once placed in the correct order, both functioned perfectly, although there appears to be a slight delay in Wi-Fi connecting on boot. This is consistent and once connected there are no issues.
+
+## USB Mapping - RESOLVED
 
 USB Mapping was difficult as I only had a USB 2.0 keyboard and mouse.
