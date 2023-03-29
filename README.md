@@ -36,7 +36,20 @@ The purpose of this file is to provide guidance for the user of this build to se
 
 # Out of the Box: Setting up MacOS Ventura
 
-Follow the on screen MacOS Ventura setup process. If FileVault comes up as an option, save this for later.
+Upon boot, your Hackintosh will automatically log in to a dummy account named Mac User with the password printed and included in the box (though it will not be required at boot to enter the password).
+
+## Create Your Own Account
+
+To create your own account, follow the steps below.
+
+1. Go to System Settings -> Users & Groups -> Add Account... You will be prompted to enter the password that is printed in the box.
+2. MAKE SURE YOUR NEW ACCOUNT TYPE IS: ADMINISTRATOR
+3. Enter the remaining information to your liking and click create user, you should see three accounts now Mac User, your new account, and Guest User.
+4. Change Automatically log in as to your new account.
+5. You are still currently logged in as "Mac User" so Log Out Mac User
+6. Log in to your new account and follow the on screen MacOS Ventura setup process.
+7. Once booted to your desktop go to System Settings -> Users & Groups, and click the "i" button on the right side of Mac User and delete this account.
+8. Double check that Automatically log in as is set to your new account, and you should be all set!
 
 ## Time Machine
 
